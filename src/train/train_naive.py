@@ -9,6 +9,7 @@ from torch.optim import AdamW
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.utils.data import DataLoader
 
+import wandb
 from src.data.camvid_dataset import CamVidDataset
 from src.models.naive_segmentation import NaiveSegmentationModel
 from src.utils.logger import setup_logger
@@ -28,13 +29,26 @@ def main():
     with config_path.open("r", encoding="utf-8") as file:
         config = yaml.safe_load(file)
 
-    setup_logger(config["output"]["log_dir"])
+    # logs paths
+    output_config = config["output"]
+    log_dir = Path(output_config["log_dir"])
+    log_dir.mkdir(parents=True, exist_ok=True)
+
+    setup_logger(f"{log_dir}/{output_config['log_name']}")
     logger = logging.getLogger(__name__)
     set_seed(config["training"]["seed"])
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
     logger.critical("Device: %s", device)
+
+    # Initialize W&B experiment
+    wandb_config = config["wandb"]
+    wandb.init(
+        project=wandb_config["project"],
+        name=wandb_config["run_name"],
+        config=config,
+        tags=["naive"],
+    )
 
     # Datasets
     dataset_config = config["dataset"]
@@ -59,8 +73,8 @@ def main():
     if configured_classes is not None and configured_classes != num_classes:
         logger.warning(
             "Configured classes %d but dataset has %d classes",
-            num_classes,
             configured_classes,
+            num_classes,
         )
 
     logger.info("Classes (%d): %s", num_classes, train_dataset.classes)
@@ -96,10 +110,9 @@ def main():
         n_freeze_layers=model_config["n_freeze_layers"],
     ).to(device)
 
-    # CrossEntropyLoss expects raw logits and integer class masks.
     criterion = nn.CrossEntropyLoss(ignore_index=dataset_config["ignore_index"])
 
-    # Use different learning rates for pretrained and new layers.
+    # Optimizer
     optimizer = AdamW(
         [
             {
@@ -122,7 +135,7 @@ def main():
         min_lr=loader_config["min_lr"],
     )
 
-    output_config = config["output"]
+    # Checkpoint paths
     checkpoint_dir = Path(output_config["checkpoint_dir"])
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
@@ -130,6 +143,7 @@ def main():
     last_path = checkpoint_dir / output_config["last_model_name"]
 
     best_miou = -1.0
+    best_epoch = 0
 
     logger.info("Starting training for %d epochs", loader_config["epochs"])
 
@@ -144,7 +158,6 @@ def main():
             ignore_index=dataset_config["ignore_index"],
             optimizer=optimizer,
             logger=logger,
-            mode="train",
         )
 
         val_metrics = run_epoch(
@@ -155,10 +168,9 @@ def main():
             device=device,
             num_classes=num_classes,
             ignore_index=dataset_config["ignore_index"],
-            logger=logger,
-            mode="val",
         )
 
+        # Update scheduler using validation mIoU
         scheduler.step(val_metrics["miou"])
 
         current_lrs = [group["lr"] for group in optimizer.param_groups]
@@ -180,13 +192,39 @@ def main():
             current_lrs[1],
         )
 
+        # Check whether this is the best model so far
+        is_best = val_metrics["miou"] > best_miou
+
+        if is_best:
+            best_miou = val_metrics["miou"]
+            best_epoch = epoch
+
+        # Log metrics to W&B
+        wandb.log(
+            {
+                "epoch": epoch,
+                "train/loss": train_metrics["loss"],
+                "train/pixel_accuracy": train_metrics["pixel_accuracy"],
+                "train/miou": train_metrics["miou"],
+                "val/loss": val_metrics["loss"],
+                "val/pixel_accuracy": val_metrics["pixel_accuracy"],
+                "val/miou": val_metrics["miou"],
+                "learning_rate/encoder": current_lrs[0],
+                "learning_rate/decoder": current_lrs[1],
+                "best/val_miou": best_miou,
+                "best/epoch": best_epoch,
+            },
+            step=epoch,
+        )
+
+        # Save last checkpoint
         checkpoint = {
             "epoch": epoch,
             "model_state_dict": model.state_dict(),
             "optimizer_state_dict": optimizer.state_dict(),
             "scheduler_state_dict": scheduler.state_dict(),
             "val_miou": val_metrics["miou"],
-            "best_val_miou": max(best_miou, val_metrics["miou"]),
+            "best_val_miou": best_miou,
             "num_classes": num_classes,
             "classes": train_dataset.classes,
             "config": config,
@@ -194,9 +232,8 @@ def main():
 
         torch.save(checkpoint, last_path)
 
-        if val_metrics["miou"] > best_miou:
-            best_miou = val_metrics["miou"]
-            checkpoint["best_val_miou"] = best_miou
+        # Save best checkpoint
+        if is_best:
             torch.save(checkpoint, best_path)
 
             logger.info(
@@ -207,8 +244,12 @@ def main():
 
     logger.info("Training finished.")
     logger.info("Best validation mIoU: %.4f", best_miou)
+    logger.info("Best epoch: %d", best_epoch)
     logger.info("Best checkpoint: %s", best_path)
     logger.info("Last checkpoint: %s", last_path)
+
+    # Finish W&B run
+    wandb.finish()
 
 
 if __name__ == "__main__":
