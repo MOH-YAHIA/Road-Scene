@@ -1,4 +1,5 @@
 import torch
+from torch import nn
 
 
 def calculate_metrics(confusion_matrix):
@@ -45,7 +46,8 @@ def run_epoch(
     training = optimizer is not None
     model.train(training)
     if training and n_freeze_layers > 0:
-        for layer in model.encoder.backbone[:n_freeze_layers]:
+        base_model = model.module if isinstance(model, nn.DataParallel) else model
+        for layer in base_model.encoder.backbone[:n_freeze_layers]:
             layer.eval()
 
     total_loss = 0.0

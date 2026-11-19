@@ -110,17 +110,23 @@ def main():
         n_freeze_layers=model_config["n_freeze_layers"],
     ).to(device)
 
+    logger.info("Using %d GPUs", torch.cuda.device_count())
+    if torch.cuda.device_count() > 1:
+        model = nn.DataParallel(model)
+
+    # Loss
     criterion = nn.CrossEntropyLoss(ignore_index=dataset_config["ignore_index"])
 
     # Optimizer
+    base_model = model.module if isinstance(model, nn.DataParallel) else model
     optimizer = AdamW(
         [
             {
-                "params": model.encoder.parameters(),
+                "params": base_model.encoder.parameters(),
                 "lr": loader_config["encoder_lr"],
             },
             {
-                "params": model.decoder.parameters(),
+                "params": base_model.decoder.parameters(),
                 "lr": loader_config["decoder_lr"],
             },
         ],
@@ -220,7 +226,9 @@ def main():
         # Save last checkpoint
         checkpoint = {
             "epoch": epoch,
-            "model_state_dict": model.state_dict(),
+            "model_state_dict": model.module.state_dict()
+            if isinstance(model, nn.DataParallel)
+            else model.state_dict(),
             "optimizer_state_dict": optimizer.state_dict(),
             "scheduler_state_dict": scheduler.state_dict(),
             "val_miou": val_metrics["miou"],
