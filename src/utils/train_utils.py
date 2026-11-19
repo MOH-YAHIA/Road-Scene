@@ -3,9 +3,7 @@ import torch
 
 def calculate_metrics(confusion_matrix):
     """confusion_matrix[true_class, predicted_class]"""
-    confusion_matrix = confusion_matrix.float()
-
-    true_positive = confusion_matrix.diag()
+    true_positive = confusion_matrix.diag().float()
     ground_truth_count = confusion_matrix.sum(dim=1)
     predicted_count = confusion_matrix.sum(dim=0)
 
@@ -22,9 +20,7 @@ def calculate_metrics(confusion_matrix):
     return accuracy, miou
 
 
-def update_confusion_matrix(
-    confusion_matrix, logits, masks, num_classes, ignore_index=255
-):
+def update_confusion_matrix(confusion_matrix, logits, masks, num_classes, ignore_index):
     predictions = logits.argmax(dim=1)
     valid = masks != ignore_index
 
@@ -45,7 +41,6 @@ def run_epoch(
     ignore_index,
     optimizer=None,
     logger=None,
-    mode="train",
 ):
     training = optimizer is not None
     model.train(training)
@@ -72,7 +67,9 @@ def run_epoch(
 
         # No gradients are computed during validation.
         with torch.set_grad_enabled(training):
-            logits = model(images)
+            logits = model(images)  # (batch_size, num_classes, H, W)
+            # masks: (batch_size, H, W)
+            # crossentropy expects class in dim 1
             loss = criterion(logits, masks)
 
             if training:
@@ -91,7 +88,7 @@ def run_epoch(
             ignore_index,
         )
 
-        if mode == "train" and logger is not None and idx % (len(loader) // 5) == 0:
+        if logger is not None and idx % (len(loader) // 5) == 0:
             logger.info(
                 "Batch %d/%d | Loss: %.4f ", idx + 1, len(loader), loss.detach().item()
             )
