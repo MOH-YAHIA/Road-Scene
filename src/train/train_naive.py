@@ -150,7 +150,7 @@ def main():
 
     best_miou = -1.0
     best_epoch = 0
-
+    bad_counter = 0
     logger.info("Starting training for %d epochs", loader_config["epochs"])
 
     for epoch in range(1, loader_config["epochs"] + 1):
@@ -204,6 +204,8 @@ def main():
         if is_best:
             best_miou = val_metrics["miou"]
             best_epoch = epoch
+        else:
+            bad_counter += 1
 
         # Log metrics to W&B
         wandb.log(
@@ -249,6 +251,11 @@ def main():
                 best_path,
                 best_miou,
             )
+
+        # Early stopping
+        if bad_counter >= loader_config["early_stopping_patience"]:
+            logger.warning("Early stopping.")
+            break
 
     logger.info("Training finished.")
     logger.info("Best validation mIoU: %.4f", best_miou)
