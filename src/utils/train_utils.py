@@ -90,7 +90,7 @@ def run_epoch(
             ignore_index,
         )
 
-        if logger is not None and idx % (len(loader) // 5) == 0:
+        if logger is not None and idx % max((len(loader) // 5), 1) == 0:
             logger.info(
                 "Batch %d/%d | Loss: %.4f ", idx + 1, len(loader), loss.detach().item()
             )
