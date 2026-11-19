@@ -8,7 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+.env
 
 dataset/
 checkpoints/
 notebooks/test.ipynb
+wandb/
