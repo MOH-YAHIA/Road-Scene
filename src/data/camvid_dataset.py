@@ -26,8 +26,8 @@ class CamVidDataset(Dataset):
                 transforms.RandomCrop(
                     image_size
                 ),  # Use RandomCrop for Train to add variety
-                # transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.2),
-                #  transforms.GaussianBlur(kernel_size=(3, 3), sigma=(0.1, 2.0)),
+                transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.2),
+                transforms.GaussianBlur(kernel_size=(3, 3), sigma=(0.1, 2.0)),
                 transforms.ToTensor(),
                 transforms.Normalize(
                     mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]

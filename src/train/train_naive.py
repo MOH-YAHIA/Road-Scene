@@ -182,9 +182,9 @@ def main():
         current_lrs = [group["lr"] for group in optimizer.param_groups]
 
         logger.info(
-            "Epoch %03d/%03d | "
-            "Train loss: %.4f, pixel acc: %.4f, mIoU: %.4f | "
-            "Val loss: %.4f, pixel acc: %.4f, mIoU: %.4f | "
+            "Epoch %03d/%03d \n"
+            "Train loss: %.4f, pixel acc: %.4f, mIoU: %.4f \n"
+            "Val loss: %.4f, pixel acc: %.4f, mIoU: %.4f \n"
             "Encoder LR: %.2e, Decoder LR: %.2e",
             epoch,
             loader_config["epochs"],
@@ -204,6 +204,7 @@ def main():
         if is_best:
             best_miou = val_metrics["miou"]
             best_epoch = epoch
+            bad_counter = 0
         else:
             bad_counter += 1
 
