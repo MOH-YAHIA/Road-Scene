@@ -7,7 +7,7 @@ dataset:
 # Model
 model:
   num_classes: 32 
-  n_freeze_layers: 6 # range of [0,8]
+  n_freeze_layers: 3 # [stem, layer1, layer2, layer3, layer4]
 
 # Training
 training:
@@ -18,8 +18,8 @@ training:
   seed: 42
   early_stopping_patience: 4
 
-  encoder_lr: 0.00001
-  decoder_lr: 0.0001
+  encoder_lr: 0.0001
+  decoder_lr: 0.001
   weight_decay: 0.0001
 
   scheduler_factor: 0.5
@@ -30,11 +30,11 @@ training:
 output:
   checkpoint_dir: checkpoints/naive
   log_dir: logs/naive
-  best_model_name: best_model_4.pth
-  last_model_name: last_model_4.pth
-  log_name: train_4.log
+  best_model_name: best_model_final.pth
+  last_model_name: last_model_final.pth
+  log_name: train_final.log
 
 # WandB
 wandb:
   project: CamVid-Semantic-Segmentation
-  run_name: naive_4
+  run_name: naive_final
