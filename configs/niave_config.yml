@@ -7,7 +7,7 @@ dataset:
 # Model
 model:
   num_classes: 32 
-  n_freeze_layers: 6
+  n_freeze_layers: 6 # range of [0,8]
 
 # Training
 training:
