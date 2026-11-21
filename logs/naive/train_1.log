@@ -1,0 +1,169 @@
+19:11:38 | [train_naive.py] | INFO: Classes (32): ['Animal', 'Archway', 'Bicyclist', 'Bridge', 'Building', 'Car', 'CartLuggagePram', 'Child', 'Column_Pole', 'Fence', 'LaneMkgsDriv', 'LaneMkgsNonDriv', 'Misc_Text', 'MotorcycleScooter', 'OtherMoving', 'ParkingBlock', 'Pedestrian', 'Road', 'RoadShoulder', 'Sidewalk', 'SignSymbol', 'Sky', 'SUVPickupTruck', 'TrafficCone', 'TrafficLight', 'Train', 'Tree', 'Truck_Bus', 'Tunnel', 'VegetationMisc', 'Void', 'Wall']
+19:11:38 | [train_naive.py] | INFO: Train images: 369
+19:11:38 | [train_naive.py] | INFO: Validation images: 100
+Downloading: "https://download.pytorch.org/models/resnet50-11ad3fa6.pth" to /root/.cache/torch/hub/checkpoints/resnet50-11ad3fa6.pth
+100%|██████████████████████████████████████| 97.8M/97.8M [00:00<00:00, 216MB/s]
+19:11:40 | [train_naive.py] | INFO: Using 2 GPUs
+19:11:40 | [train_naive.py] | INFO: Starting training for 20 epochs
+19:12:00 | [train_utils.py] | INFO: Batch 1/6 | Loss: 3.5463
+19:12:01 | [train_utils.py] | INFO: Batch 2/6 | Loss: 3.3915
+19:12:02 | [train_utils.py] | INFO: Batch 3/6 | Loss: 3.2571
+19:12:03 | [train_utils.py] | INFO: Batch 4/6 | Loss: 3.1045
+19:12:15 | [train_utils.py] | INFO: Batch 5/6 | Loss: 3.0015
+19:12:16 | [train_utils.py] | INFO: Batch 6/6 | Loss: 2.9105
+19:12:34 | [train_naive.py] | INFO: Epoch 001/020 | Train loss: 3.2137, pixel acc: 0.2056, mIoU: 0.0338 | Val loss: 3.5006, pixel acc: 0.0000, mIoU: 0.0000 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:12:35 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.0000)
+19:12:44 | [train_utils.py] | INFO: Batch 1/6 | Loss: 2.7514
+19:12:45 | [train_utils.py] | INFO: Batch 2/6 | Loss: 2.7150
+19:12:46 | [train_utils.py] | INFO: Batch 3/6 | Loss: 2.6376
+19:12:47 | [train_utils.py] | INFO: Batch 4/6 | Loss: 2.5680
+19:12:51 | [train_utils.py] | INFO: Batch 5/6 | Loss: 2.5169
+19:12:52 | [train_utils.py] | INFO: Batch 6/6 | Loss: 2.5000
+19:12:58 | [train_naive.py] | INFO: Epoch 002/020 | Train loss: 2.6195, pixel acc: 0.5515, mIoU: 0.0849 | Val loss: 3.4131, pixel acc: 0.1651, mIoU: 0.0226 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:13:00 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.0226)
+19:13:10 | [train_utils.py] | INFO: Batch 1/6 | Loss: 2.3943
+19:13:11 | [train_utils.py] | INFO: Batch 2/6 | Loss: 2.4137
+19:13:12 | [train_utils.py] | INFO: Batch 3/6 | Loss: 2.3415
+19:13:13 | [train_utils.py] | INFO: Batch 4/6 | Loss: 2.3111
+19:13:16 | [train_utils.py] | INFO: Batch 5/6 | Loss: 2.2496
+19:13:17 | [train_utils.py] | INFO: Batch 6/6 | Loss: 2.2845
+19:13:24 | [train_naive.py] | INFO: Epoch 003/020 | Train loss: 2.3344, pixel acc: 0.6509, mIoU: 0.1009 | Val loss: 3.0891, pixel acc: 0.5159, mIoU: 0.0806 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:13:25 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.0806)
+19:13:35 | [train_utils.py] | INFO: Batch 1/6 | Loss: 2.2226
+19:13:36 | [train_utils.py] | INFO: Batch 2/6 | Loss: 2.1926
+19:13:37 | [train_utils.py] | INFO: Batch 3/6 | Loss: 2.2939
+19:13:38 | [train_utils.py] | INFO: Batch 4/6 | Loss: 2.2149
+19:13:41 | [train_utils.py] | INFO: Batch 5/6 | Loss: 2.1904
+19:13:42 | [train_utils.py] | INFO: Batch 6/6 | Loss: 2.1598
+19:13:48 | [train_naive.py] | INFO: Epoch 004/020 | Train loss: 2.2145, pixel acc: 0.6845, mIoU: 0.1129 | Val loss: 2.7170, pixel acc: 0.5822, mIoU: 0.0840 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:13:50 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.0840)
+19:14:00 | [train_utils.py] | INFO: Batch 1/6 | Loss: 2.1842
+19:14:01 | [train_utils.py] | INFO: Batch 2/6 | Loss: 2.1270
+19:14:02 | [train_utils.py] | INFO: Batch 3/6 | Loss: 2.1564
+19:14:03 | [train_utils.py] | INFO: Batch 4/6 | Loss: 2.0456
+19:14:06 | [train_utils.py] | INFO: Batch 5/6 | Loss: 2.0398
+19:14:07 | [train_utils.py] | INFO: Batch 6/6 | Loss: 2.1457
+19:14:14 | [train_naive.py] | INFO: Epoch 005/020 | Train loss: 2.1153, pixel acc: 0.7183, mIoU: 0.1218 | Val loss: 2.4904, pixel acc: 0.6167, mIoU: 0.1043 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:14:15 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1043)
+19:14:25 | [train_utils.py] | INFO: Batch 1/6 | Loss: 2.0734
+19:14:26 | [train_utils.py] | INFO: Batch 2/6 | Loss: 2.0492
+19:14:27 | [train_utils.py] | INFO: Batch 3/6 | Loss: 2.0359
+19:14:28 | [train_utils.py] | INFO: Batch 4/6 | Loss: 2.0176
+19:14:32 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.9850
+19:14:33 | [train_utils.py] | INFO: Batch 6/6 | Loss: 2.0159
+19:14:40 | [train_naive.py] | INFO: Epoch 006/020 | Train loss: 2.0301, pixel acc: 0.7417, mIoU: 0.1272 | Val loss: 2.3216, pixel acc: 0.6342, mIoU: 0.1039 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:14:50 | [train_utils.py] | INFO: Batch 1/6 | Loss: 2.0543
+19:14:51 | [train_utils.py] | INFO: Batch 2/6 | Loss: 2.0199
+19:14:52 | [train_utils.py] | INFO: Batch 3/6 | Loss: 2.0344
+19:14:54 | [train_utils.py] | INFO: Batch 4/6 | Loss: 2.0601
+19:14:56 | [train_utils.py] | INFO: Batch 5/6 | Loss: 2.0139
+19:14:57 | [train_utils.py] | INFO: Batch 6/6 | Loss: 2.0183
+19:15:04 | [train_naive.py] | INFO: Epoch 007/020 | Train loss: 2.0341, pixel acc: 0.7216, mIoU: 0.1263 | Val loss: 2.2871, pixel acc: 0.6246, mIoU: 0.1091 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:15:05 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1091)
+19:15:15 | [train_utils.py] | INFO: Batch 1/6 | Loss: 2.0014
+19:15:16 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.9440
+19:15:17 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.9696
+19:15:18 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.8927
+19:15:22 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.8779
+19:15:23 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.9751
+19:15:30 | [train_naive.py] | INFO: Epoch 008/020 | Train loss: 1.9422, pixel acc: 0.7516, mIoU: 0.1405 | Val loss: 2.2471, pixel acc: 0.6302, mIoU: 0.1103 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:15:31 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1103)
+19:15:41 | [train_utils.py] | INFO: Batch 1/6 | Loss: 1.8991
+19:15:42 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.9570
+19:15:43 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.8533
+19:15:44 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.8319
+19:15:47 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.8472
+19:15:48 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.8742
+19:15:55 | [train_naive.py] | INFO: Epoch 009/020 | Train loss: 1.8772, pixel acc: 0.7644, mIoU: 0.1450 | Val loss: 2.2126, pixel acc: 0.6435, mIoU: 0.1168 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:15:56 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1168)
+19:16:06 | [train_utils.py] | INFO: Batch 1/6 | Loss: 2.0075
+19:16:07 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.8647
+19:16:08 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.8551
+19:16:09 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.8715
+19:16:13 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.9016
+19:16:14 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.9680
+19:16:20 | [train_naive.py] | INFO: Epoch 010/020 | Train loss: 1.9091, pixel acc: 0.7486, mIoU: 0.1325 | Val loss: 2.1434, pixel acc: 0.6566, mIoU: 0.1204 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:16:22 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1204)
+19:16:31 | [train_utils.py] | INFO: Batch 1/6 | Loss: 1.7669
+19:16:33 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.8319
+19:16:34 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.9218
+19:16:35 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.8845
+19:16:38 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.8084
+19:16:39 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.8332
+19:16:46 | [train_naive.py] | INFO: Epoch 011/020 | Train loss: 1.8414, pixel acc: 0.7702, mIoU: 0.1476 | Val loss: 2.1106, pixel acc: 0.6611, mIoU: 0.1229 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:16:47 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1229)
+19:16:57 | [train_utils.py] | INFO: Batch 1/6 | Loss: 1.9116
+19:16:58 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.8032
+19:16:59 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.8449
+19:17:00 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.8746
+19:17:04 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.8047
+19:17:05 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.7312
+19:17:11 | [train_naive.py] | INFO: Epoch 012/020 | Train loss: 1.8323, pixel acc: 0.7570, mIoU: 0.1460 | Val loss: 2.1266, pixel acc: 0.6632, mIoU: 0.1282 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:17:13 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1282)
+19:17:23 | [train_utils.py] | INFO: Batch 1/6 | Loss: 1.8155
+19:17:24 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.7990
+19:17:25 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.8144
+19:17:26 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.7953
+19:17:29 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.8541
+19:17:29 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.7376
+19:17:36 | [train_naive.py] | INFO: Epoch 013/020 | Train loss: 1.8053, pixel acc: 0.7562, mIoU: 0.1460 | Val loss: 2.1106, pixel acc: 0.6634, mIoU: 0.1303 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:17:38 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1303)
+19:17:47 | [train_utils.py] | INFO: Batch 1/6 | Loss: 1.7402
+19:17:48 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.8536
+19:17:49 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.7738
+19:17:51 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.7283
+19:17:54 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.7569
+19:17:55 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.8569
+19:18:02 | [train_naive.py] | INFO: Epoch 014/020 | Train loss: 1.7820, pixel acc: 0.7556, mIoU: 0.1443 | Val loss: 2.0311, pixel acc: 0.6743, mIoU: 0.1325 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:18:03 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1325)
+19:18:13 | [train_utils.py] | INFO: Batch 1/6 | Loss: 1.7037
+19:18:14 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.7915
+19:18:15 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.7575
+19:18:16 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.7434
+19:18:20 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.7397
+19:18:21 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.8012
+19:18:27 | [train_naive.py] | INFO: Epoch 015/020 | Train loss: 1.7543, pixel acc: 0.7602, mIoU: 0.1475 | Val loss: 1.9822, pixel acc: 0.6880, mIoU: 0.1381 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:18:29 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1381)
+19:18:39 | [train_utils.py] | INFO: Batch 1/6 | Loss: 1.6914
+19:18:40 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.7096
+19:18:41 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.7208
+19:18:42 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.6622
+19:18:45 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.7038
+19:18:46 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.7088
+19:18:53 | [train_naive.py] | INFO: Epoch 016/020 | Train loss: 1.6991, pixel acc: 0.7858, mIoU: 0.1537 | Val loss: 1.9954, pixel acc: 0.6836, mIoU: 0.1447 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:18:54 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1447)
+19:19:04 | [train_utils.py] | INFO: Batch 1/6 | Loss: 1.7461
+19:19:05 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.7381
+19:19:06 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.6908
+19:19:07 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.6499
+19:19:10 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.6636
+19:19:11 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.7762
+19:19:18 | [train_naive.py] | INFO: Epoch 017/020 | Train loss: 1.7081, pixel acc: 0.7667, mIoU: 0.1610 | Val loss: 2.0186, pixel acc: 0.6768, mIoU: 0.1398 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:19:28 | [train_utils.py] | INFO: Batch 1/6 | Loss: 1.7784
+19:19:29 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.5951
+19:19:30 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.6674
+19:19:31 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.6311
+19:19:34 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.6503
+19:19:35 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.6196
+19:19:42 | [train_naive.py] | INFO: Epoch 018/020 | Train loss: 1.6585, pixel acc: 0.7762, mIoU: 0.1560 | Val loss: 2.0098, pixel acc: 0.6836, mIoU: 0.1494 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:19:43 | [train_naive.py] | INFO: New best model saved: checkpoints/naive/best_model_1.pth (val mIoU: 0.1494)
+19:19:53 | [train_utils.py] | INFO: Batch 1/6 | Loss: 1.8125
+19:19:54 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.7102
+19:19:55 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.6732
+19:19:57 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.6494
+19:20:00 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.6209
+19:20:01 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.6684
+19:20:08 | [train_naive.py] | INFO: Epoch 019/020 | Train loss: 1.6899, pixel acc: 0.7643, mIoU: 0.1566 | Val loss: 1.9713, pixel acc: 0.6773, mIoU: 0.1459 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:20:18 | [train_utils.py] | INFO: Batch 1/6 | Loss: 1.6433
+19:20:19 | [train_utils.py] | INFO: Batch 2/6 | Loss: 1.6630
+19:20:20 | [train_utils.py] | INFO: Batch 3/6 | Loss: 1.6080
+19:20:21 | [train_utils.py] | INFO: Batch 4/6 | Loss: 1.5638
+19:20:24 | [train_utils.py] | INFO: Batch 5/6 | Loss: 1.6288
+19:20:25 | [train_utils.py] | INFO: Batch 6/6 | Loss: 1.5670
+19:20:31 | [train_naive.py] | INFO: Epoch 020/020 | Train loss: 1.6142, pixel acc: 0.7911, mIoU: 0.1597 | Val loss: 1.9480, pixel acc: 0.6835, mIoU: 0.1425 | Encoder LR: 1.00e-05, Decoder LR: 1.00e-04
+19:20:32 | [train_naive.py] | WARNING: Early stopping.
+19:20:32 | [train_naive.py] | INFO: Training finished.
+19:20:32 | [train_naive.py] | INFO: Best validation mIoU: 0.1494
+19:20:32 | [train_naive.py] | INFO: Best epoch: 18
+19:20:32 | [train_naive.py] | INFO: Best checkpoint: checkpoints/naive/best_model_1.pth
+19:20:32 | [train_naive.py] | INFO: Last checkpoint: checkpoints/naive/last_model_1.pth
