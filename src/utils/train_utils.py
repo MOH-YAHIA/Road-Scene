@@ -47,7 +47,7 @@ def run_epoch(
     model.train(training)
     if training and n_freeze_layers > 0:
         base_model = model.module if isinstance(model, nn.DataParallel) else model
-        for layer in base_model.encoder.backbone[:n_freeze_layers]:
+        for layer in base_model.encoder.layers[:n_freeze_layers]:
             layer.eval()
 
     total_loss = 0.0

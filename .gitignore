@@ -14,3 +14,4 @@ dataset/
 checkpoints/
 notebooks/test.ipynb
 wandb/
+images/
