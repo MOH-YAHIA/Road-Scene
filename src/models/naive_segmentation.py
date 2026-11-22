@@ -39,7 +39,8 @@ class Encoder(nn.Module):
         weights = ResNet50_Weights.DEFAULT
         resnet = resnet50(weights=weights)
 
-        self.stem = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool)
+        self.stem = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu)
+        self.pool = resnet.maxpool
         self.layer1 = resnet.layer1
         self.layer2 = resnet.layer2
         self.layer3 = resnet.layer3
@@ -60,13 +61,14 @@ class Encoder(nn.Module):
 
     def forward(self, x):
         # B, 3, H, W
-        stem_o = self.stem(x)  # B, 64, H/4, W/4
-        layer1_o = self.layer1(stem_o)  # B, 256, H/4, W/4
+        stem_o = self.stem(x)  # B, 64, H/2, W/2
+        pool_o = self.pool(stem_o)  # B, 64, H/4, W/4
+        layer1_o = self.layer1(pool_o)  # B, 256, H/4, W/4
         layer2_o = self.layer2(layer1_o)  # B, 512, H/8, W/8
         layer3_o = self.layer3(layer2_o)  # B, 1024, H/16, W/16
         layer4_o = self.layer4(layer3_o)  # B, 2048, H/32, W/32
 
-        return stem_o, layer1_o, layer2_o, layer3_o, layer4_o
+        return stem_o, pool_o, layer1_o, layer2_o, layer3_o, layer4_o
 
 
 class Decoder(nn.Module):
@@ -76,28 +78,24 @@ class Decoder(nn.Module):
         self.block1 = ConvBlock(2048, 1024)  # layer4 undo
         self.block2 = ConvBlock(1024, 512)  # layer3 undo
         self.block3 = ConvBlock(512, 256)  # layer2 undo
-        self.block4 = ConvBlock(256, 64)  # layer1 undo
+        self.block4 = ConvBlock(256, 128)  # layer1 undo
 
         self.classifier = nn.Conv2d(  # stem undo
-            64,
+            128,
             num_classes,
             kernel_size=1,
         )
 
     def forward(
         self,
-        stem_o_s,
-        layer1_o_s,
-        layer2_o_s,
-        layer3_o_s,
-        layer4_o,
+        layers_o,
         output_size,
     ):
-
+        stem_o, _, layer1_o, layer2_o, layer3_o, layer4_o = layers_o
         # B, 2048, H/32, W/32
         x = F.interpolate(
             layer4_o,
-            size=layer3_o_s,
+            size=layer3_o.shape[-2:],
             mode="bilinear",
             align_corners=False,
         )
@@ -107,7 +105,7 @@ class Decoder(nn.Module):
 
         x = F.interpolate(
             x,
-            scale_factor=layer2_o_s,
+            size=layer2_o.shape[-2:],
             mode="bilinear",
             align_corners=False,
         )
@@ -117,7 +115,7 @@ class Decoder(nn.Module):
 
         x = F.interpolate(
             x,
-            scale_factor=layer1_o_s,
+            size=layer1_o.shape[-2:],
             mode="bilinear",
             align_corners=False,
         )
@@ -127,13 +125,13 @@ class Decoder(nn.Module):
 
         x = F.interpolate(
             x,
-            scale_factor=stem_o_s,
+            size=stem_o.shape[-2:],
             mode="bilinear",
             align_corners=False,
         )
         # B, 256, H/2, W/2
         x = self.block4(x)
-        # B, 64, H/2, W/2
+        # B, 128, H/2, W/2
 
         x = F.interpolate(
             x,
@@ -141,7 +139,7 @@ class Decoder(nn.Module):
             mode="bilinear",
             align_corners=False,
         )
-        # B, 64, H, W
+        # B, 128, H, W
         return self.classifier(x)  # B, num_classes, H, W
 
 
@@ -160,14 +158,9 @@ class NaiveSegmentationModel(nn.Module):
     def forward(self, x):
         output_size = x.shape[-2:]
 
-        stem_o, layer1_o, layer2_o, layer3_o, layer4_o = self.encoder(x)
-        # pass only spatial info for layers except layer 4
+        layers_o = self.encoder(x)
         logits = self.decoder(
-            stem_o_s=stem_o.shape[-2:],
-            layer1_o_s=layer1_o.shape[-2:],
-            layer2_o_s=layer2_o.shape[-2:],
-            layer3_o_s=layer3_o.shape[-2:],
-            layer4_o=layer4_o,  # B, 2048, H/32, W/32
+            layers_o,
             output_size=output_size,
         )
 
